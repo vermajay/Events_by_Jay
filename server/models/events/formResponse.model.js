@@ -6,16 +6,45 @@ const formResponseSchema = new mongoose.Schema({
     ref: "Event",
     required: true,
   },
-  responses: { type: Object, required: true }, // key-value pairs from form submission
-  submittedAt: { type: Date, default: Date.now }, // When the form was submitted
+  fullName:{
+    type: String,
+    required: true,
+  },
+  email:{
+    type: String,
+    required: true,
+  },
+  phone:{
+    type: String,
+    required: true,
+  },
+  age:{
+    type: Number,
+    required: true,
+  },
+  heardAbout:{    //How they heard about the event
+    type: String,
+  },
+  futureEventNotification:{  //Future event notification
+    type: Boolean,
+    default: false,
+  },
+  submittedAt:{  // When the form was submitted
+    type: Date, 
+    default: Date.now 
+  },
   status: {
     type: String,
     enum: ["pending", "approved", "rejected"],
     default: "pending",
   },
-  email: { type: String }, // Email of the attendee fetched from the responses (if provided)
-  qrCode: { type: String }, // Generated QR code string/url
-  checkedInAt: { type: Date }, // When the QR was scanned, this also marks the user's attendance
+  qrCode:{    // Generated QR code string/url
+    type: String,
+  },
+  checkedInAt:{  // When the QR was scanned, this also marks the user's attendance
+    type: Date,
+    default: null,
+  },
 });
 
 export default mongoose.model("FormResponse", formResponseSchema);

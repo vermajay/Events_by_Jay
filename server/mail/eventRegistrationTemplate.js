@@ -79,8 +79,6 @@ export const eventRegistrationEmail = (eventTitle, eventDescription, eventLocati
     
     <body>
         <div class="container">
-            <!-- <a href="https://software.clicktalks.co"><img class="logo" src="https://software.clicktalks.co/assets/clicktalks_logo-BLNn_xkh.png" alt="Clicktalks Logo"></a> -->
-
             <div class="message">Registration Confirmed!</div>
             <div class="body">
                 <p>Thank you for registering for <span class="highlight">${eventTitle}</span>!</p>

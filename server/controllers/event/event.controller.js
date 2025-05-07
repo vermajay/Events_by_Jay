@@ -1,6 +1,4 @@
 import Event from "../../models/events/event.model.js";
-import { createDefaultForm } from "./form.controller.js";
-import Form from "../../models/events/form.model.js";
 
 // Create a new event
 export const createEvent = async (req, res) => {
@@ -15,10 +13,10 @@ export const createEvent = async (req, res) => {
     } = req.body;
 
     // Validate required fields
-    if (!title) {
+    if (!title || !description || !location || !startDate || !endDate || !registrationDeadline) {
       return res.status(400).json({
         success: false,
-        message: "Event title is required"
+        message: "All fields are required"
       });
     }
 
@@ -31,9 +29,6 @@ export const createEvent = async (req, res) => {
       endDate,
       registrationDeadline
     });
-
-    // Create default form for this event
-    await createDefaultForm(event._id);
 
     return res.status(201).json({
       success: true,
@@ -151,9 +146,6 @@ export const deleteEvent = async (req, res) => {
     
     // Delete the event
     await Event.findByIdAndDelete(eventId);
-
-    // Delete the form associated with the event
-    await Form.findOneAndDelete({ eventId });
     
     return res.status(200).json({
       success: true,

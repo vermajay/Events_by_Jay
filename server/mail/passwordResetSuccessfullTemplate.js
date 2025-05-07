@@ -56,17 +56,13 @@ export const passwordResetSuccessfull = (email) => {
     <body>
         <div class="container">
 
-            <!-- <a href="https://software.clicktalks.co"><img class="logo" src="https://software.clicktalks.co/assets/clicktalks_logo-BLNn_xkh.png" alt="Clicktalks Logo"></a> -->
-
             <div class="message">Password Reset Successfull</div>
             <div class="body">
                 <p>Dear admin,</p>
                 <p>Your request to reset the password for the email <span class="highlight">${email}</span> is complete.</p>
                 <p>If you did not request this password change, please contact us immediately to secure your account.</p>
             </div>
-            <div class="support">If you have any questions or need further assistance, please feel free to reach out to us
-                at
-                <a href="mailto:contact@bloomtideconsulting.com">contact@bloomtideconsulting.com</a>. We are here to help!
+            <div class="support">If you have any questions or need further assistance, please feel free to reach out to us. We are here to help!
             </div>
         </div>
     </body>

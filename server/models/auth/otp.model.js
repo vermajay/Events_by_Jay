@@ -39,7 +39,7 @@ export default mongoose.model("OTP", OTPSchema);
 
 async function sendVerificationEmail(email, otp){
     try{
-        const mailResponse = await mailSender(email, "Verification email from Clicktalks", newAdminCreationTemplate(otp));
+        const mailResponse = await mailSender(email, "Verification email from Events by Jay", newAdminCreationTemplate(otp));
         console.log("Email sent successfully", mailResponse);
     }
     catch(error){

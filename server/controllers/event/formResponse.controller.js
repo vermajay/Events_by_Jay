@@ -1,5 +1,4 @@
 import FormResponse from "../../models/events/formResponse.model.js";
-import Form from "../../models/events/form.model.js";
 import Event from "../../models/events/event.model.js";
 
 import jwt from "jsonwebtoken"; // to secure the QR code
@@ -13,7 +12,14 @@ import { eventRegistrationEmail } from "../../mail/eventRegistrationTemplate.js"
 export const submitFormResponse = async (req, res) => {
   try {
     const { eventId } = req.params;
-    const formData = req.body;
+    const { fullName, email, phone, age, heardAbout, futureEventNotification } = req.body;
+
+    if(!fullName || !email || !phone || !age){
+      return res.status(400).json({
+        success: false,
+        message: "Full name, email, phone and age are required"
+      });
+    }
     
     // Verify event exists and is published
     const event = await Event.findById(eventId);
@@ -31,51 +37,29 @@ export const submitFormResponse = async (req, res) => {
         message: "Registration deadline has passed"
       });
     }
-    
-    // Check if form exists for this event
-    const form = await Form.findOne({ eventId });
-    if (!form) {
-      return res.status(404).json({
-        success: false,
-        message: "Registration form not found for this event"
-      });
-    }
-    
-    // Validate required fields from the form
-    const requiredFields = form.fields.filter(field => field.required).map(field => field.name);
-    
-    for (const fieldName of requiredFields) {
-      if (!formData[fieldName]) {
-        return res.status(400).json({
-          success: false,
-          message: `Required field '${fieldName}' is missing`
-        });
-      }
-    }
-    
-    // Extract email from form data if available
-    const email = formData.email || "";
 
     // Check if user has already registered with this email
-    if (email) {
-      const existingResponse = await FormResponse.findOne({ 
-        eventId, 
-        email: email 
+    const existingResponse = await FormResponse.findOne({ 
+      eventId, 
+      email: email 
+    });
+    
+    if (existingResponse) {
+      return res.status(400).json({
+        success: false,
+        message: "You have already registered for this event"
       });
-      
-      if (existingResponse) {
-        return res.status(400).json({
-          success: false,
-          message: "You have already registered for this event"
-        });
-      }
     }
     
     // Create form response
     const formResponse = await FormResponse.create({
       eventId,
-      responses: formData,
-      email
+      fullName,
+      email,
+      phone,
+      age,
+      heardAbout: heardAbout || "Not provided",
+      futureEventNotification: futureEventNotification || false
     });
     
     return res.status(201).json({
@@ -195,6 +179,8 @@ export const approveFormResponse = async (req, res) => {
     // Generate QR code with the JWT token
     const qrCode = await generateQR(token);
     
+    console.log("QR Code:", qrCode);
+
     // Update response status
     response.status = 'approved';
     response.qrCode = qrCode;
@@ -379,7 +365,7 @@ export const getAttendanceStats = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Attendance stats fetched successfully",
-      stats: {
+      data: {
         totalResponses,
         pendingResponses,
         approvedResponses,

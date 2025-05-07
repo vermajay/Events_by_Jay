@@ -66,18 +66,15 @@ export const newAdminCreationTemplate = (otp) => {
 	
 	<body>
 		<div class="container">
-		
-			<!-- <a href="https://software.clicktalks.co"><img class="logo" src="https://software.clicktalks.co/assets/clicktalks_logo-BLNn_xkh.png" alt="Clicktalks Logo"></a> -->
-
 			<div class="message">OTP Verification Email</div>
 			<div class="body">
 				<p>Dear Admin,</p>
-				<p>We are creating an account for you to log in to Clicktalks Events Dashboard. To complete the process, please use the following OTP (One-Time Password) to verify this email:</p>
+				<p>We are creating an account for you to log in to Events by Jay Dashboard. To complete the process, please use the following OTP (One-Time Password) to verify this email:</p>
 				<h2 class="highlight">${otp}</h2>
 				<p>This OTP is valid for 5 minutes. If you did not request this verification, please disregard this email.
 				Once your account is verified, you will have access to the platform and its features.</p>
 			</div>
-			<div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a href="mailto:contact@bloomtideconsulting.com">contact@bloomtideconsulting.com</a>. We are here to help!</div>
+			<div class="support">If you have any questions or need assistance, please feel free to reach out to us. We are here to help!</div>
 		</div>
 	</body>
 	

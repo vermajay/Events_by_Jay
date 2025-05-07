@@ -11,7 +11,9 @@ import UpdatePassword from './pages/auth/UpdatePassword.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import FormSubmission from './pages/FormSubmission.jsx'
 import QRCodeScanner from './pages/QRCodeScanner.jsx'
-import FormBuilder from './pages/form-builder/FormBuilder.jsx'
+import Events from './pages/Events.jsx'
+import EventDetails from './pages/EventDetails.jsx'
+import Attendees from './pages/Attendees.jsx'
 
 function App() {
 
@@ -34,7 +36,9 @@ function App() {
                   <Routes>
                     <Route path="dashboard" element={<Dashboard/>} />
                     <Route path="check-in" element={<QRCodeScanner/>} />
-                    <Route path="form-builder" element={<FormBuilder/>} />
+                    <Route path="events" element={<Events/>} />
+                    <Route path="events/:eventId" element={<EventDetails/>} />
+                    <Route path="events/:eventId/attendees" element={<Attendees/>} />
                   </Routes>
                 </MainLayout>
               </PrivateRoute>
@@ -43,8 +47,7 @@ function App() {
 
           {/* Both admin and user can visit this route */}
           <Route path="register/:eventId" element={<FormSubmission/>} />
-          
-
+        
         </Routes>
     </div>
   )

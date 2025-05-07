@@ -10,7 +10,6 @@ import { dbConnect } from "./config/database.js";
 
 import adminRoutes from "./routes/admin.route.js";
 import eventRoutes from "./routes/event.route.js";
-import formRoutes from "./routes/form.route.js";
 import formResponseRoutes from "./routes/formResponse.route.js";
 
 const app = express();
@@ -38,7 +37,6 @@ app.use(
 // Mount routes
 app.use("/api/v1/auth", adminRoutes);
 app.use("/api/v1/events", eventRoutes);
-app.use("/api/v1/forms", formRoutes);
 app.use("/api/v1/form-responses", formResponseRoutes);
 
 // Default route

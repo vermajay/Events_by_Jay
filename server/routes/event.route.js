@@ -20,7 +20,7 @@ router.post("/createEvent", auth, createEvent);
 router.get("/getAllEvents", auth, getAllEvents);
 
 // Get a single event by ID
-router.get("/getEventById/:eventId", auth, getEventById);
+router.get("/getEventById/:eventId", getEventById);
 
 // Update an event
 router.put("/updateEvent/:eventId", auth, updateEvent);
