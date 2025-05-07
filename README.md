@@ -33,8 +33,3 @@
    o Pending attendees\
    • Filter/search functionality.\
    • Exportable attendance report.
-
-registration to be on hold once someone fills it we will approve it from backend then etbatch confirmation is sent to them\
-rejected ones goes to rejected page, we can also approve them later
-
-2 coloums of ppl who's QR code has been scanned at the event

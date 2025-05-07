@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
 import { dbConnect } from "./config/database.js";
+import { cloudinaryConnect } from "./config/cloudinary.js";
 
 import adminRoutes from "./routes/admin.route.js";
 import eventRoutes from "./routes/event.route.js";
@@ -20,6 +21,9 @@ const PORT = process.env.PORT || 4000;
 
 // Database connection
 dbConnect();
+
+// Cloudinary connection
+cloudinaryConnect();
 
 // Middleware configuration
 app.use(bodyParser.json());

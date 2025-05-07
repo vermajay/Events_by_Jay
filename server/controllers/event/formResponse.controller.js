@@ -2,7 +2,7 @@ import FormResponse from "../../models/events/formResponse.model.js";
 import Event from "../../models/events/event.model.js";
 
 import jwt from "jsonwebtoken"; // to secure the QR code
-import { generateQR } from "../../utils/qrGenerator.js";
+import { generateQR, uploadQRToCloudinary } from "../../utils/qrGenerator.js";
 
 import mailSender from "../../mail/mailSender.js";
 import { eventRegistrationEmail } from "../../mail/eventRegistrationTemplate.js";
@@ -177,13 +177,16 @@ export const approveFormResponse = async (req, res) => {
     const token = jwt.sign(qrData, process.env.JWT_SECRET, { expiresIn: '30d' });
     
     // Generate QR code with the JWT token
-    const qrCode = await generateQR(token);
+    const qrCodeDataUrl = await generateQR(token);
     
-    console.log("QR Code:", qrCode);
+    // Upload QR code to Cloudinary
+    const cloudinaryQrUrl = await uploadQRToCloudinary(qrCodeDataUrl);
+    
+    console.log("Cloudinary QR URL:", cloudinaryQrUrl);
 
     // Update response status
     response.status = 'approved';
-    response.qrCode = qrCode;
+    response.qrCode = cloudinaryQrUrl; // Store Cloudinary URL instead of base64
     
     await response.save();
     
@@ -204,7 +207,7 @@ export const approveFormResponse = async (req, res) => {
           event.location || "No location provided",
           event.startDate,
           event.endDate,
-          qrCode
+          cloudinaryQrUrl // Use Cloudinary URL here
         )
       );
     }
