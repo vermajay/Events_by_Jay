@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 
 //so that the backend(PORT:4000) can entertain the requests made by frontend(PORT:5173) on the same local machine
 import cors from "cors";  
@@ -24,6 +25,26 @@ dbConnect();
 
 // Cloudinary connection
 cloudinaryConnect();
+
+// Set correct MIME types, especially for JS modules
+app.use(express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, path) => {
+        if (path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'application/javascript');
+        }
+        if (path.endsWith('.mjs')) {
+            res.setHeader('Content-Type', 'application/javascript');
+        }
+    }
+}));
+  
+// Add CORS headers to allow your Netlify frontend to access the backend
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://eventsease.netlify.app');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    next();
+});
 
 // Middleware configuration
 app.use(bodyParser.json());
