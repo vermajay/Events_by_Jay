@@ -32,7 +32,7 @@ export const resetPasswordToken = async(req, res) => {
         console.log("updated admin with token and expiration-> ", updateDetails);
 
         //create url for resetting password
-        const url = `http://localhost:5173/update-password/${token}`; //this is a link to the UI of app (frontend)
+        const url = `https://eventsease.netlify.app/update-password/${token}`; //this is a link to the UI of app (frontend)
  
         //send the mail with the reset password link to the admin
         await mailSender(email, "Password Reset Link", resetPasswordLinkEmail(email, admin.name, url));

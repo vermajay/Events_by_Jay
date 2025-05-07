@@ -99,7 +99,7 @@ const Events = () => {
   const handleShareLink = (e, eventId) => {
     e.stopPropagation() // Prevent card click when clicking share button
     
-    const link = `http://localhost:5173/register/${eventId}`
+    const link = `https://eventsease.netlify.app/register/${eventId}`
     navigator.clipboard.writeText(link)
       .then(() => {
         setCopySuccess(eventId)
